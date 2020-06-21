@@ -38,7 +38,7 @@ class Paje:
         
     @_ataque_fisico
     def ataque_fisico(self):
-        pontos_de_ataque = percentage(50,self._magia) + percentage(50,self._forca)
+        pontos_de_ataque = (50*self._magia/100) + (50*self._forca/100)
         return pontos_de_ataque
 
     def _fantasia(foo):
@@ -48,7 +48,7 @@ class Paje:
         
     @_fantasia
     def fantasia(self):
-        pontos_vida = percentage(10,self._sabedoria) + 40 + self._magia
+        pontos_vida = (10*self._sabedoria/100) + 40 + self._magia
         return pontos_vida
 
     def _mira(foo):
@@ -58,11 +58,9 @@ class Paje:
         
     @_mira
     def mira(self):
-        pontos_vida = percentage(10,self._sabedoria) + 80
+        pontos_vida = (10*self._sabedoria/100) + 80
         return pontos_vida
 
-    def percentage(percent, whole):
-        return (percent * whole) / 100.0
 
 page = Paje(2000, 1000, 5000)
 print(page.sabedoria)
