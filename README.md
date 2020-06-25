@@ -1,6 +1,6 @@
 <h1 align="center"> ImperiumRPG </h1>
 
-<p align="justify"> Projeto Final da Disciplina de programção Orientada à Objetos IESB. </p> <img src="https://img.shields.io/static/v1?label=Python&message=POO&color=brightgreengreen&style=for-the-badge&logo=Python"/>
+<p align="justify"> Projeto Final da Disciplina de programação Orientada à Objetos IESB. </p> <img src="https://img.shields.io/static/v1?label=Python&message=POO&color=brightgreengreen&style=for-the-badge&logo=Python"/>
 
 > Status do Projeto: Concluído :heavy_check_mark:
 
