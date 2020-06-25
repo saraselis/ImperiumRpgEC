@@ -37,6 +37,8 @@
 * Instalar os requeriments
 `pip3 install -r requeriments.txt`
 
+`sudo apt-get install python3-tk`
+
 * Opcional para melhor visualização dos testes 
   - Jupyter lab
 `pip3 install jupyterlab`
