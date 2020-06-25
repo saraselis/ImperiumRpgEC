@@ -1,6 +1,6 @@
 from abc import abstractmethod
 import personagem
-import tala_ataque_paje
+import tela_ataque_paje
 
 class Paje(Personagem):
     def __init__(self, nome: str, tipo: int, distancia_ataque: int, pontos_vida: int, pontos_mana: int, pontos_ataque: int, sabedoria: int, forca: int, magia: int):
@@ -9,6 +9,10 @@ class Paje(Personagem):
         self._forca = forca
         self._magia = magia
 
+    @property
+    def get_sabedoria(self):
+        return self._sabedoria
+
     @get_sabedoria.setter
     def sabedoria(self,value):
         if not instance(value, int):
@@ -16,9 +20,8 @@ class Paje(Personagem):
         self._sabedoria = value.title()
 
     @property
-    def get_sabedoria(self):
-        return self._sabedoria
-    self.get_sabedoria
+    def get_forca(self):
+        return self._forca
 
     @get_forca.setter
     def forca(self,value):
@@ -27,9 +30,8 @@ class Paje(Personagem):
         self._forca = value.title()
 
     @property
-    def get_forca(self):
-        return self._forca
-    self.get_forca
+    def get_magia(self):
+        return self._magia
 
     @get_magia.setter
     def magia(self,value):
@@ -37,45 +39,84 @@ class Paje(Personagem):
             raise TypeError("...")
         self._magia = value.title()
 
-    @property
-    def get_magia(self):
-        return self._magia
-    self.get_magia
 
     @Personagem._checa_vida
     @Personagem._checa_mana
 
-    def ataque_fisico(self, inimigo:Personagem)
-        pontos_de_ataque = (0,5*self._magia) + (0,5*self._forca)
-        self._pontos_ataque = self._pontos_ataque + pontos_de_ataque
-        self._show_ataque('ataque fisico')
-        return f'Agora o ataque de {self._nome.title()} é {self._pontos_ataque}'
+    def ataque_fisico(self, inimigo: Personagem): #ataque
+        ataque = ((0,5*self.get_magia) + (0,5*self.get_forca))
+        inimigo._pontos_vida = (inimigo._pontos_vida - ataque)
+        print(f'O inimigo {inimigo._nome.title()} está com {inimigo._pontos_vida} pontos de vida!')
+
+        self._show_ataque('ataque_fisico')
+
+        if inimigo._pontos_vida.__pos__() < 0:
+            print("O inimigo foi derrotado")
+        else:
+            print("Cuidado! O inimigo ainda pode atacar")
+
+        return 'Na proxima ele não escapa!'
 
     @Personagem._checa_vida
     @Personagem._checa_mana
 
-    def fantasia(self, inimigo:Personagem)
-        fantasia = (0.1*self._sabedoria) + 40 + self._magia
-        self._pontos_vida = self._pontos_vida + fantasia
-        self._show_ataque('fantasia')    
-        return f'A fantasia de {self._nome.title()}, agora é {self._pontos_vida}'
+    def fantasia(self, inimigo: Personagem): #defesa
+        fantasia = ((0.1*self.get_sabedoria) + 40 + self.get_magia)
+        inimigo._pontos_ataque = (inimigo._pontos_ataque - fantasia)
+         print(f'O ataque do inimigo {inimigo._nome.title()} diminuiu, agora é {inimigo._pontos_ataque}')
+
+        self._show_ataque('fantasia')
+
+        if inimigo._pontos_ataque.__pos__() <= 0:
+            print("Esse inimigo não tem mais forças para lutar!")
+
+        else:
+            self._pontos_vida = self._pontos_vida - inimigo._pontos_ataque
+            print(f"A vida de {self._nome.title()} é {self._pontos_vida}")
+
+            if self._pontos_vida.__pos__() <= 0:
+                print("Você perdeu toda a sua vida!") 
+            else:
+                print("Ainda há vida!")
+
+        return f'A fantasia te salvou!' 
 
     @Personagem._checa_vida
     @Personagem._checa_mana
 
-    def mira(self, inimigo:Personagem):
-        mira = (0.1*self._sabedoria) + 80
-        self._pontos_vida = self._pontos_vida + mira
-        self._show_ataque('mira')    
-        return f'A mira de {self._nome.title()}, agora é {self._pontos_vida}'
+    def compensacao(self):#regeneracao
+        regeneracao = 10 + (0,3*self.get_sabedoria)
+        self._pontos_vida = (self._pontos_vida + regeneracao)
+        self._show_ataque('compensacao')    
+        return 'A nova vida de {} é {}'.format(self._nome.title(), self._pontos_vida) 
+
+    @Personagem._checa_vida
+    @Personagem._checa_mana
+
+    def mira(self, inimigo: Personagem): #defesa/regeneracao
+        mira = ((0.1*self.get_sabedoria) + 80)
+        self._pontos_vida = (self._pontos_vida + mira)
+        inimigo._pontos_ataque = (inimigo._pontos_ataque - mira)
+         print(f'O ataque do inimigo {inimigo._nome.title()} diminuiu, agora é {inimigo._pontos_ataque}')
+
+        self._show_ataque('mira')
+
+        if inimigo._pontos_ataque.__pos__() <= 0:
+            print("Esse inimigo não tem mais forças para lutar!")
+
+        else:
+            self._pontos_vida = self._pontos_vida - inimigo._pontos_ataque
+            print(f"A vida de {self._nome.title()} é {self._pontos_vida}")
+
+            if self._pontos_vida.__pos__() <= 0:
+                print("Você perdeu toda a sua vida!") 
+            else:
+                print("Ainda há vida!")
+
+        return f'Não temos um minuto de paz!'
 
     def grito_de_guerra(self): 
         return f"{self._nome.title()} diz: UH! UH! UH! UH!"
     
-    def  __str__ ( próprio ):
-        return  'Um nome de usuário {} está pronto para luta'.formato(próprio._nome )
-
-
-
-
-
+    def  __str__ (self):
+        return  'Um Pajé de nome {} está pronto para luta'.format(self._nome.title())
