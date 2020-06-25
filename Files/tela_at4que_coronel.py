@@ -12,7 +12,7 @@ class TelaAtaqueCoronel:
         pipoco_dos_tiro_img = ""
 
         imagens_gui = {}
-        imagens_gui = OrderedDict(imagens_gui)
+        
 
         imagens_gui = {
             "toma_bala": toma_bala_img,
@@ -22,6 +22,8 @@ class TelaAtaqueCoronel:
             "pipoco_dos_tiro": pipoco_dos_tiro_img,
         }
 
+        imagens_gui = OrderedDict(imagens_gui)
+         
         for key in imagens_gui:
             if ataque == key:
                 ataque = imagens_gui[key]

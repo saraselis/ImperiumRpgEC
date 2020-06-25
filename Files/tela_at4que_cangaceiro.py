@@ -12,7 +12,7 @@ class TelaAtaqueCangaceiro:
         gaita_curandeira_img = ""
 
         imagens_gui = {}
-        imagens_gui = OrderedDict(imagens_gui)
+        
 
         imagens_gui = {
             "morre_infiliz": morre_infiliz_img,
@@ -22,6 +22,8 @@ class TelaAtaqueCangaceiro:
             "gaita_curandeira": gaita_curandeira_img,
         }
 
+        imagens_gui = OrderedDict(imagens_gui)
+        
         for key in imagens_gui:
             if ataque == key:
                 ataque = imagens_gui[key]

@@ -11,14 +11,15 @@ class TelaAtaquePaje:
         mira_img = ""
 
         imagens_gui = {}
-        imagens_gui = OrderedDict(imagens_gui)
-
+        
         imagens_gui = {
             "ataque_fisico": ataque_fisico_img,
             "fantasia": fantasia_img,
             "compensacao": compensacao_img,
             "mira": mira_img,
         }
+
+        imagens_gui = OrderedDict(imagens_gui)
 
         for key in imagens_gui:
             if ataque == key:

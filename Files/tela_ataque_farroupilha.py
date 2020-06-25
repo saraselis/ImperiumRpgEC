@@ -17,7 +17,7 @@ class TelaAtaqueFarroupilha:
         gritos_lib_img = "/home/stefanini/Documentos/IESB/6to/05-poo/ImperiumRPG/imperiumRpg/Imagens/farroupilha/gritos_liberdade.png"
 
         imagens_gui = {}
-        imagens_gui = OrderedDict(imagens_gui)
+        
 
         imagens_gui = {
             "pranchando_adaga": panchando_adaga_img,
@@ -27,6 +27,8 @@ class TelaAtaqueFarroupilha:
             "tertulia": tertulia_img,
             "gritos_de_liberdade": gritos_lib_img,
         }
+
+        imagens_gui = OrderedDict(imagens_gui)
 
         for key in imagens_gui:
             if ataque == key:
