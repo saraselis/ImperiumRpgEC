@@ -12,7 +12,7 @@ class Paje(Personagem):
     @get_sabedoria.setter
     def sabedoria(self,value):
         if not instance(value, int):
-            raise TypeError("Erro")
+            raise TypeError("...")
         self._sabedoria = value.title()
 
     @property
@@ -23,7 +23,7 @@ class Paje(Personagem):
     @get_forca.setter
     def forca(self,value):
         if not instance(value, int):
-            raise TypeError("Erro")
+            raise TypeError("...")
         self._forca = value.title()
 
     @property
@@ -34,7 +34,7 @@ class Paje(Personagem):
     @get_magia.setter
     def magia(self,value):
         if not instance(value, int):
-            raise TypeError("Erro")
+            raise TypeError("...")
         self._magia = value.title()
 
     @property
@@ -42,21 +42,28 @@ class Paje(Personagem):
         return self._magia
     self.get_magia
 
+    @Personagem._checa_vida
+    @Personagem._checa_mana
 
-    def ataque_fisico(self, inimigo)
-        pontos_de_ataque = (50*self._magia/100) + (50*self._forca/100)
+    def ataque_fisico(self, inimigo:Personagem)
+        pontos_de_ataque = (0,5*self._magia) + (0,5*self._forca)
         self._pontos_ataque = self._pontos_ataque + pontos_de_ataque
         self._show_ataque('ataque fisico')
         return f'Agora o ataque de {self._nome.title()} é {self._pontos_ataque}'
 
+    @Personagem._checa_vida
+    @Personagem._checa_mana
 
-    def fantasia(self, inimigo)
+    def fantasia(self, inimigo:Personagem)
         fantasia = (0.1*self._sabedoria) + 40 + self._magia
         self._pontos_vida = self._pontos_vida + fantasia
         self._show_ataque('fantasia')    
         return f'A fantasia de {self._nome.title()}, agora é {self._pontos_vida}'
 
-    def mira(self, inimigo):
+    @Personagem._checa_vida
+    @Personagem._checa_mana
+
+    def mira(self, inimigo:Personagem):
         mira = (0.1*self._sabedoria) + 80
         self._pontos_vida = self._pontos_vida + mira
         self._show_ataque('mira')    
