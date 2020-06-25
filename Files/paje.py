@@ -9,7 +9,7 @@ from personagem import Personagem
 from tela_ataque_paje import TelaAtaquePaje
 
 class Paje(Personagem):
-    def __init__(self, nome: str, tipo: int, distancia_ataque: int, pontos_vida: int, pontos_mana: int, pontos_ataque: int, sabedoria: int, forca: int, magia: int):
+    def __init__(self, nome: str, tipo: int, distancia_ataque: int, pontos_vida: float, pontos_mana: float, pontos_ataque: int, sabedoria: int, forca: int, magia: int):
         super().__init__(nome, tipo, distancia_ataque, pontos_vida, pontos_mana, pontos_ataque)
         self._sabedoria = sabedoria
         self._forca = forca
