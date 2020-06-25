@@ -8,7 +8,8 @@ class Principal:
         pass
 
 class Personagem(Principal):
-    def __init__(self, nome:str, tipo:int, distancia_ataque:int, resistencia:int, pontos_vida:float, pontos_mana:float, pontos_ataque:int):
+    def __init__(self, nome:str, tipo:int, distancia_ataque:int, resistencia:int,
+                  pontos_vida:float, pontos_mana:float, pontos_ataque:int):
         self._nome = nome
         self._tipo = tipo
         self._distancia_ataque = distancia_ataque
@@ -74,26 +75,33 @@ class Personagem(Principal):
     def pontos_ataque(self, novo_pts_ataque:int):
         self._pontos_ataque = novo_pts_ataque
 
-    '''metodos da classe'''
-    def perder_vida(self, loss:int):
-        self._pontos_vida = self._pontos_vida - loss
-        return f'A vida deste personagem agora é {self._pontos_vida}'
-
-    def aumentar_vida(self): # precisa?
-        pass
-
-    def gastar_mana(self):  # precisa?
-        pass
-
     def grito_de_guerra(self):
-        pass
+        raise GritoEx
 
-    def decepa_inimigo(inimigo):
-        inimigo.__del__()
-        return 'Amiguinho decepado'
+    def _checa_mana(foo):
+        def verifica(self, *inimigo) :
+            if self._pontos_mana <= 10:
+                return print(f"{self._nome.title()}  não tem mana o suficiente para executar esta ação!")
+            else:
+                foo(self, *inimigo)
+        return verifica
 
-    def __str__(self):
-        return "Personagem criado"
+    def _checa_vida(foo):
+        def verifica(self, *inimigo) :
+            if inimigo[0]._pontos_vida <= 0:
+                return print(f"{inimigo[0]._nome.title()} não tem VIDA o suficiente para executar esta ação!")
+            else:
+                foo(self, *inimigo)
+        return verifica
+
+    @staticmethod
+    def _show_ataque(tipo_ataque:str):
+        tela = TelaAtaqueCoronel(tipo_ataque)
+        tela.iniciar()
+
 
     def __del__(self):
-        print(f'{self._nome.title()} bateu as bota')
+        return f'{self._nome.title()} bateu as bota'
+
+    def __repr__(self):
+        return f'{self._nome.title()}'
