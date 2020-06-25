@@ -2,7 +2,7 @@ from abc import abstractmethod
 import personagem
 import tela_ataque_paje
 
-class Paje(Personagem):
+class Paje(Personagem, Stack, TelaAtaquePaje):
     def __init__(self, nome: str, tipo: int, distancia_ataque: int, pontos_vida: int, pontos_mana: int, pontos_ataque: int, sabedoria: int, forca: int, magia: int):
         super().__init__(nome, tipo, distancia_ataque, pontos_vida, pontos_mana, pontos_ataque)
         self._sabedoria = sabedoria
