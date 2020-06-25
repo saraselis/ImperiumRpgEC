@@ -26,7 +26,6 @@ class TelaAtaqueFarroupilha:
             "desenhar_a_desgraca": desenhar_img,
             "tertulia": tertulia_img,
             "gritos_de_liberdade": gritos_lib_img,
-
         }
 
         for key in imagens_gui:
