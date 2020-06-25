@@ -8,6 +8,7 @@ class Paje(Personagem):
         self._sabedoria = sabedoria
         self._forca = forca
         self._magia = magia
+        self._fila = Stack()
 
     @property
     def get_sabedoria(self):
@@ -118,5 +119,23 @@ class Paje(Personagem):
     def grito_de_guerra(self): 
         return f"{self._nome.title()} diz: UH! UH! UH! UH!"
     
+    def buff_tipe(self):
+        if self._tipo == 1:
+            ataque = super().distancia_ataque
+            self._distancia_ataque = ataque + 10
+            print("Buff de Ranged")
+
+        elif self._tipo == 0:
+            ataque = super()._resistencia
+            self._resistencia = ataque + 10
+            print("Buff de Melee")
+        else:
+            pass
+
+    def album_figurinhas(self):
+        print(f"Ultimo morto: {self._fila.topo()}")
+        print("Lista de mortos:")
+        self._fila.show_pilha()
+
     def  __str__ (self):
         return  'Um Pajé de nome {} está pronto para luta'.format(self._nome.title())
