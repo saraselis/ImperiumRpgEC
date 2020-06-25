@@ -2,55 +2,49 @@ from abc import abstractmethod
 import personagem
 import tela_ataque_coronel
 
-class Coronel(Personagem):
+class Coronel(Personagem, Stack, TelaAtaqueCoronel):
     def __init__(self, nome: str, tipo: int, distancia_ataque: int, pontos_vida: float, pontos_mana: float, pontos_ataque: int, mandonismo: float, diplomacia: float, municao: int, poder_aquisitivo: float):
         super().__init__(nome, tipo, distancia_ataque, pontos_vida, pontos_mana, pontos_ataque)
         self._mandonismo = mandonismo
         self._diplomacia = diplomacia
         self._municao = municao
         self._poder_arquivo = poder_aquisitivo
+        self._fila = Stack()
 
     #gets e sets dos atributos
 
-    @get_mandonismo.setter
-    def mandonismo(self,value):
-        if not instance(value, float):
-            raise TypeError("...")
-        self._mandonismo = value.title()
-
     @property
-    def get_mandonismo(self):
+    def mandonismo(self) -> float:
         return self._mandonismo
 
-    @get_diplomacia.setter
-    def diplomacia(self,value):
-        if not instance(value, float):
-            raise TypeError("...")
-        self._diplomacia = value.title()
+    @mandonismo.setter
+    def mandonismo(self, nova_mandonismo:float):
+        self._mandonismo = mandonismo
 
     @property
-    def get_diplomacia(self):
+    def diplomacia(self) -> int:
         return self._diplomacia
 
-    @get_municao.setter
-    def municao(self,value):
-        if not instance(value, int):
-            raise TypeError("...")
-        self._municao = value.title()
+    @diplomacia.setter
+    def diplomacia(self, nova_diplomacia:int):
+        self._diplomacia = diplomacia
 
     @property
-    def get_municao(self):
+    def municao(self) -> int:
         return self._municao
 
-    @get_poder_aquisitivo.setter
-    def poder_aquisitivo(self,value):
-        if not instance(value, float):
-            raise TypeError("...")
-        self._poder_arquivo = value.title()
+    @municao.setter
+    def municao(self, novo_municao:int):
+        self._municao = novo_municao
 
     @property
-    def get_poder_aquisitivo(self):
-        return self._poder_aquisitivo
+    def poder_aquisitivo(self) -> float:
+        return self._mateador
+
+    @poder_aquisitivo.setter
+    def poder_aquisitivo(self, novo_poder_aquisitivo:float):
+        self._poder_arquivo = novo_poder_aquisitivo
+
 
     #     @_checa_mana
     @Personagem._checa_vida
@@ -58,8 +52,8 @@ class Coronel(Personagem):
 
 
     def toma_bala(self, inimigo: Personagem): #ataque
-        ataque = (self._pontos_ataque + self.get_mandonismo + (0,1*self.get_municao))
-        self.get_municao -= 10
+        ataque = (self._pontos_ataque + self._mandonismo + (0,1*self._municao))
+        self._municao = self._municao - 10
         inimigo._pontos_vida = (inimigo._pontos_vida - ataque)
         print(f'O inimigo {inimigo._nome.title()} está com {inimigo._pontos_vida} pontos de vida!')
 
@@ -70,11 +64,11 @@ class Coronel(Personagem):
         else:
             print("do imposto de renda vc não escapa")
 
-        return ''
+        return 'guarda o revolver'
 
     def hj_nao_cabra(self, inimigo: Personagem): #defesa
-        inimigo._pontos_ataque = (inimigo._pontos_ataque - self.get_diplomacia)
-        self.get_municao += 5
+        inimigo._pontos_ataque = (inimigo._pontos_ataque - self._diplomacia)
+        self._municao = self._municao + 5
 
         print(f'O ataque do inimigo {inimigo._nome.title()} diminuiu, agora é {inimigo._pontos_ataque}')
 
@@ -92,18 +86,18 @@ class Coronel(Personagem):
             else:
                 print("Hj este coronel irá viver")
 
-        return f''
+        return 'eu escolho paz'
 
     def passa_merthiolate(self): #regeneraçao
-        regeneracao = (20 + (0.3 * poder_aquisitivo))
+        regeneracao = (20 + (0.3 * self._poder_aquisitivo))
         self._pontos_vida = (self._pontos_vida + regeneracao)
         self._show_ataque('passa_merthiolate')
         return 'A nova vida de {} é {}'.format(self._nome.title(), self._pontos_vida)
 
 
     def maculele(self, inimigo: Personagem): #especial
-        ataque = (self._pontos_mana + self.get_mandonismo + (0,3*self._get_municao))
-        municao -= 30
+        ataque = (self._pontos_mana + self._mandonismo + (0,3*self._municao))
+        self._municao = self._municao - 30
         inimigo._pontos_vida = (inimigo._pontos_vida - ataque)
         print(f'O inimigo {inimigo._nome.title()} está com {inimigo._pontos_vida} pontos de vida!')
 
@@ -114,11 +108,11 @@ class Coronel(Personagem):
         else:
             print("do imposto de renda vc não escapa")
 
-        return ''
+        return 'ahh mas é hj q tu morre'
 
-    def pipoco_dos_tiro(self, inimigo: Personagem):
-        ataque = ((0,1*self._get_municao) + (0,7*self._get_mandonismo))
-        municao -= 10
+    def pipoco_dos_tiro(self, inimigo: Personagem): #ataque
+        ataque = ((0,1*self._municao) + (0,7*self._mandonismo))
+        self._municao = self._municao - 10
         inimigo._pontos_vida = (inimigo._pontos_vida - ataque)
         print(f'O inimigo {inimigo._nome.title()} está com {inimigo._pontos_vida} pontos de vida!')
 
@@ -129,7 +123,30 @@ class Coronel(Personagem):
         else:
             print("do imposto de renda vc não escapa")
 
-        return ''
+        return 'Hj todos irão sofrer perante meu revolver'
+
+    def grito_de_guerra(self) -> str:
+        return f"{self._nome.title()} diz: É hj que irei te roubar"
+
+
+    def buff_tipe(self):
+        if self._tipo == 1:
+            ataque = super().distancia_ataque
+            self._distancia_ataque = ataque + 10
+            print("Buff de Ranged")
+
+        elif self._tipo == 0:
+            ataque = super()._resistencia
+            self._resistencia = ataque + 10
+            print("Buff de Melee")
+        else:
+            pass
+
+    def album_figurinhas(self):
+        print(f"Ultimo morto: {self._fila.topo()}")
+        print("Lista de mortos:")
+        self._fila.show_pilha()
+
 
     def __str__(self):
         return 'Um Coronel de nome {} está pronto pra luta'.format(self._nome)
