@@ -9,6 +9,8 @@
   - Escolha entre <b>Farroupilha</b>, <b>Cangaceiro</b>, <b>Coronel</b>, <b>Pajé</b> e divirta-se.
   - Cada personagem possui suas habilidade únicas e especiais.
   
+![Imagem](https://github.com/saraselis/ImperiumRPG/blob/master/painel.png)
+  
 ## Tópicos implementados :trophy:
 - [X] Herança
 - [X] Herança múltipla
@@ -19,7 +21,7 @@
 - [X] Colletion
 - [X] Estrutuda de Dado Orientado à Objeto
 
-## Como rodar o Game
+## Como rodar o Game :fire: 
 * No terminal clone o projeto
 `git clone https://github.com/saraselis/ImperiumRPG`
 
@@ -39,7 +41,7 @@
   - Jupyter lab
 `pip3 install jupyterlab`
 
-## Dependencia
+## Dependencia :smiley_cat:
 * PySimpleGui <img src="https://img.shields.io/badge/PySimpleGui-Interface-red"/>
 
 
