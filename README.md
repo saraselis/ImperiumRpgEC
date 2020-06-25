@@ -43,6 +43,10 @@
   - Jupyter lab
 `pip3 install jupyterlab`
 
+* Entrar na pasta correta 
+`cd /Files`
+`python3 main.py`
+
 ## Dependencia :smiley_cat:
 * PySimpleGui <img src="https://img.shields.io/badge/PySimpleGui-Interface-red"/>
 
