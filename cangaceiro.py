@@ -2,55 +2,49 @@ from abc import abstractmethod
 import personagem
 import tela_ataque_cangaceiro
 
-class Cangaceiro(Personagem):
+class Cangaceiro(Personagem, Stack, TelaAtaqueCangaceiro):
     def __init__(self, nome: str, tipo:int, resistencia: int, pontos_vida: float, pontos_mana: float, pontos_ataque: int, devocao: float, temor: float, insanidade: float, rapadura: int):
         super().__init__(nome, tipo, resistencia, pontos_vida, pontos_mana, pontos_ataque)
         self._devocao = devocao
         self._temor = temor
         self._insanidade = insanidade
         self._rapadura = rapadura
+        self._fila = Stack()
 
     # gets e sets dos atributos
 
-    @get_devocao.setter
-    def devocao(self,value):
-        if not instance(value, float):
-            raise "..."
-        self._devocao = value.title()
-
-    @property
-    def get_devocao(self):
+     @property
+    def devocao(self) -> float:
         return self._devocao
 
-    @get_temor.setter
-    def temor(self,value):
-        if not instance(value, float):
-            raise TypeError("...")
-        self._temor = value.title()
+    @devocao.setter
+    def devocao(self, nova_devocao:float):
+        self._devocao = nova_devocao
 
     @property
-    def get_temor(self):
+    def temor(self) -> float:
         return self._temor
 
-    @get_insanidade.setter
-    def insanidade(self,value):
-        if not instance(value, float):
-            raise TypeError("...")
-        self._insanidade = value.title()
+    @temor.setter
+    def temor(self, novo_temor:float):
+        self._temor = novo_temor
+
 
     @property
-    def get_insanidade(self):
+    def insanidade(self) -> float:
         return self._insanidade
 
-    @get_rapadura.setter
-    def rapadura(self,value):
-        if not instance(value, int):
-            raise TypeError("...")
-        self._rapadura = value.title()
+    @insanidade.setter
+    def insanidade(self, nova_insanidade:float):
+        self._insanidade = nova_insanidade
 
     @property
-    def get_rapadura(self):
+    def rapadura(self) -> int:
         return self._rapadura
+
+    @rapadura.setter
+    def rapadura(self, nova_rapadura:int):
+        self._rapadura = nova_rapadura
 
     #     @_checa_mana
     @Personagem._checa_vida
@@ -58,7 +52,7 @@ class Cangaceiro(Personagem):
 
 
     def morre_infiliz(self, inimigo: Personagem): #ataque
-        ataque = (self._pontos_ataque + self.get_temor - (0,3*self.get_resistencia))
+        ataque = (self._pontos_ataque + self._temor - (0,3*self._resistencia))
 
         inimigo._pontos_vida = (inimigo._pontos_vida - ataque)
         print(f'O inimigo {inimigo._nome.title()} está com {inimigo._pontos_vida} pontos de vida!')
@@ -70,13 +64,13 @@ class Cangaceiro(Personagem):
         else:
             print("dessa foice oce não escapa")
 
-        return ''
+        return 'hj eu estou louco pra dar uns bufete'
 
     @Personagem._checa_vida
     @Personagem._checa_mana
 
     def se_aquiete_homi(self, inimigo: Personagem): #defesa
-        inimigo._pontos_ataque = (inimigo._pontos_ataque - self.get_devocao)
+        inimigo._pontos_ataque = (inimigo._pontos_ataque - self._devocao)
         print(f'O ataque do inimigo {inimigo._nome.title()} diminuiu, agora é {inimigo._pontos_ataque}')
 
         self._show_ataque('se_aquiete_homi')
@@ -93,13 +87,13 @@ class Cangaceiro(Personagem):
             else:
                 print("Este Cangaceiro está na proteção de Jesus")
 
-        return f''
+        return 'Até os homens mais brabos precisam de um descanso'
 
     @Personagem._checa_vida
     @Personagem._checa_mana
 
     def cristo_jesus_me_tira_dessa(self): #regeneracao
-        regeneracao = (0,6 * self.get_rapadura)
+        regeneracao = (0,6 * self._rapadura)
         self._pontos_vida = (self._pontos_vida + regeneracao)
         self._show_ataque('cristo_jesus_me_tira_dessa')
         return 'A nova vida de {} é {}'.format(self._nome.title(), self._pontos_vida)
@@ -120,7 +114,7 @@ class Cangaceiro(Personagem):
         else:
             print("dessa foice oce não escapa")
 
-        return ''
+        return 'NINGUEM ESTA LIVRE DO PECADO!!'
 
     @Personagem._checa_vida
     @Personagem._checa_mana
@@ -142,7 +136,30 @@ class Cangaceiro(Personagem):
             else:
                 print("Este Cangaceiro está na proteção de Jesus")
 
-        return f''
+        return 'É sexta-feira santa. Nada de briga'
+
+    def grito_de_guerra(self) -> str:
+        return f"{self._nome.title()} diz: CABRA SAFADO!!"
+
+
+    def buff_tipe(self):
+        if self._tipo == 1:
+            ataque = super().distancia_ataque
+            self._distancia_ataque = ataque + 10
+            print("Buff de Ranged")
+
+        elif self._tipo == 0:
+            ataque = super()._resistencia
+            self._resistencia = ataque + 10
+            print("Buff de Melee")
+        else:
+            pass
+
+    def album_figurinhas(self):
+        print(f"Ultimo morto: {self._fila.topo()}")
+        print("Lista de mortos:")
+        self._fila.show_pilha()
+
 
     def __str__(self):
         return 'Um Cangaceiro de nome {} está pronto pra luta'.format(self._nome)
